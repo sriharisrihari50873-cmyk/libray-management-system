@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Books</title>
+    <title>Library Management System - Home</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300 font-sans flex flex-col min-h-screen">
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300 font-sans">
     <header class="bg-white dark:bg-gray-800 shadow-md">
         <nav class="container mx-auto p-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">LIBRARY MANAGEMENT SYSTEM</h1>
             <ul class="flex space-x-6 text-gray-600 dark:text-gray-300 text-sm md:text-base">
-                <li><a href="index.html" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a></li>
-                <li><a href="books.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-medium">Books</a></li>
+                <li><a href="index.html" class="hover:text-blue-600 dark:hover:text-blue-400 font-medium">Home</a></li>
+                <li><a href="books.html" class="hover:text-blue-600 dark:hover:text-blue-400">Books</a></li>
                 <li><a href="members.html" class="hover:text-blue-600 dark:hover:text-blue-400">Members</a></li>
                 <li><a href="issue.html" class="hover:text-blue-600 dark:hover:text-blue-400">Issue/Return</a></li>
                 <li><a href="reports.html" class="hover:text-blue-600 dark:hover:text-blue-400">Reports</a></li>
@@ -32,38 +32,77 @@
         </nav>
     </header>
 
-    <main class="container mx-auto mt-8 p-4 flex-grow">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Manage Books</h2>
-            
-            <div class="mb-6 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                <input type="text" id="search-books" placeholder="Search by title or author..." class="flex-grow p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <select id="filter-books" class="p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="all">All Books</option>
-                    <option value="available">Available</option>
-                    <option value="on-loan">On Loan</option>
-                </select>
+    <main class="container mx-auto mt-8 p-4">
+        <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">Welcome back!</h2>
+
+        <section id="quick-stats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="stat-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg flex items-center space-x-4">
+                <div class="icon-bg bg-orange-100 dark:bg-orange-800 text-orange-500 dark:text-orange-200">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div>
+                    <p class="text-lg text-gray-500 dark:text-gray-400">Total Books</p>
+                    <p id="total-books" class="text-3xl font-bold text-gray-900 dark:text-white">0</p>
+                </div>
+            </div>
+            <div class="stat-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg flex items-center space-x-4">
+                <div class="icon-bg bg-purple-100 dark:bg-purple-800 text-purple-500 dark:text-purple-200">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div>
+                    <p class="text-lg text-gray-500 dark:text-gray-400">Total Members</p>
+                    <p id="total-members" class="text-3xl font-bold text-gray-900 dark:text-white">0</p>
+                </div>
+            </div>
+            <div class="stat-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg flex items-center space-x-4">
+                <div class="icon-bg bg-teal-100 dark:bg-teal-800 text-teal-500 dark:text-teal-200">
+                    <i class="fas fa-sign-in-alt"></i>
+                </div>
+                <div>
+                    <p class="text-lg text-gray-500 dark:text-gray-400">Books Issued</p>
+                    <p id="books-issued" class="text-3xl font-bold text-gray-900 dark:text-white">0</p>
+                </div>
+            </div>
+            <div class="stat-card bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg flex items-center space-x-4">
+                <div class="icon-bg bg-red-100 dark:bg-red-800 text-red-500 dark:text-red-200">
+                    <i class="fas fa-undo-alt"></i>
+                </div>
+                <div>
+                    <p class="text-lg text-gray-500 dark:text-gray-400">Books Returned</p>
+                    <p id="books-returned" class="text-3xl font-bold text-gray-900 dark:text-white">0</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard-details" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Recent Activities</h3>
+                <ul id="activity-list" class="space-y-4">
+                    </ul>
+                <p id="no-activities-message" class="text-gray-500 dark:text-gray-400 text-center mt-4 hidden">No recent activities.</p>
             </div>
             
-            <form id="book-form" class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-inner mb-6">
-                <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Add/Edit Book</h3>
-                <input type="hidden" id="book-id">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="book-title" placeholder="Title" required class="p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100">
-                    <input type="text" id="book-author" placeholder="Author" required class="p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100">
-                    <input type="text" id="book-genre" placeholder="Genre" required class="p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100">
-                    <input type="number" id="book-year" placeholder="Published Year" required class="p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100">
-                </div>
-                <button type="submit" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md transition-colors">Save Book</button>
-            </form>
-            
-            <div id="book-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                </div>
-            <p id="no-books-message" class="text-center text-gray-500 dark:text-gray-400 mt-4 hidden">No books found.</p>
-        </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Quick Overview</h3>
+                <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                    <li class="flex justify-between items-center">
+                        <span>Available Books</span>
+                        <span id="overview-available-books" class="font-bold text-blue-600 dark:text-blue-400">0</span>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span>Overdue Books</span>
+                        <span id="overview-overdue-books" class="font-bold text-red-600 dark:text-red-400">0</span>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span>Active Members</span>
+                        <span id="overview-active-members" class="font-bold text-green-600 dark:text-green-400">0</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </main>
 
-    <footer class="mt-auto py-4 text-center text-gray-500 dark:text-gray-400">
+    <footer class="mt-8 py-4 text-center text-gray-500 dark:text-gray-400">
         <p>&copy; 2024 Rixi Lab. All rights reserved.</p>
     </footer>
 
